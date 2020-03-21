@@ -9,7 +9,7 @@
       </template>
       <hr/>
       <template v-slot:name1='slotProps'>
-          我是2有名插槽 传递的参数为{{slotProps.foo}}
+          我是2222有名插槽 传递的参数为{{slotProps.foo}}
       </template>
     </HelloWorld>
     <HelloWorld msg="Welcome to Your Vue.js App" refresh='我是其他他的没有定义的属性'/>
