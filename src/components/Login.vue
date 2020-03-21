@@ -18,6 +18,8 @@
 import ZInput from "@/components/Zinput.vue";
 import ZFormItem from "@/components/ZformItem.vue";
 import ZForm from "@/components/Zform.vue";
+import create from "@/utils/create";
+import Notice from "@/components/Notice.vue";
 export default {
   components: {
     ZInput,
@@ -40,10 +42,19 @@ export default {
     login() {
       console.log(this.$refs["loginForm"]);
       this.$refs["loginForm"].validate(valid => {
+        console.log(valid);
         if (valid) {
-          alert("222");
+          create(Notice, {
+            title: "温馨提示",
+            content: "登陆成功",
+            duration: 2000
+          }).show();
         } else {
-          alert("333");
+          create(Notice, {
+            title: "警告",
+            content: "请填写完整",
+            duration: 200000000
+          }).show();
         }
       });
     }
