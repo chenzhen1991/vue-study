@@ -19,6 +19,8 @@
 import ZInput from "@/components/Zinput.vue";
 import ZFormItem from "@/components/ZformItem.vue";
 import ZForm from "@/components/Zform.vue";
+import create from '../utils/create';
+import Notice from '@/components/Notice.vue';
 export default {
   components: {
     ZInput,
@@ -42,9 +44,17 @@ export default {
       this.$refs['loginForm'].validate((invalid)=>{
         console.log(invalid);
         if(invalid){
-          alert('成功')
+          create(Notice,{
+            title:'提示',
+            content:'登录成功',
+            duration:1000
+          }).show()
         }else{
-          alert('失败')
+          create(Notice,{
+            title:'提示',
+            content:'登录失败',
+            duration:1000
+          }).show()
         }
       })
     }
