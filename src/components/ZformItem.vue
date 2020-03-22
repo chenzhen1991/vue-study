@@ -10,6 +10,11 @@
 <script>
 import Schema from "async-validator";
 export default {
+  provide(){
+    return {
+      formItem: this
+    }
+  },
   inject: ["form"],
   props: {
     label: {
@@ -35,11 +40,9 @@ export default {
   },
   methods: {
     validate() {
-      console.log(this.form.rules[this.prop]);
       const rules = this.form.rules[this.prop];
       const value = this.form.model[this.prop];
       const discriptor = { [this.prop]: rules };
-      console.log(value);
       const schema = new Schema(discriptor);
       return new Promise((resolve, reject) => {
         console.log(schema);

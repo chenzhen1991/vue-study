@@ -6,6 +6,7 @@
 
 <script>
     export default {
+        inject:['formItem'],
         inheritAttrs:false,
         props:{
             value:{
@@ -16,7 +17,8 @@
         methods: {
             onIput(e) {
                 this.$emit('input', e.target.value)
-                this.$parent.$emit('validate');
+                // this.$parent.$emit('validate');
+                this.formItem.$emit('validate')
             }
         },
         mounted () {
