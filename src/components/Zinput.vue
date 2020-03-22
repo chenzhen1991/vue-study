@@ -1,28 +1,24 @@
 <template>
     <div>
-        <input :value='value' @input="onIput" v-bind="$attrs">
+        <input :value='value' @input="inputHandle" v-bind="$attrs">
     </div>
 </template>
 
 <script>
     export default {
-        inject:['formItem'],
         inheritAttrs:false,
-        props:{
-            value:{
+        inject:['formItem'],
+        props: {
+            value: {
                 type: String,
-                default:''
+                default: ''
             }
         },
         methods: {
-            onIput(e) {
+            inputHandle(e) {
                 this.$emit('input', e.target.value)
-                // this.$parent.$emit('validate');
                 this.formItem.$emit('validate')
             }
-        },
-        mounted () {
-            console.log(this.$attrs)
         },
     }
 </script>
