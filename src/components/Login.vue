@@ -9,7 +9,7 @@
         <z-input v-model="model.password" type="password" placeholder="请输入密码" />
       </z-form-item>
       <z-form-item>
-       <button type="button" @click="login">登录</button>
+       <button type="button" @click="login">登呜呜呜呜录</button>
       </z-form-item>
     </z-form>
   </div>
