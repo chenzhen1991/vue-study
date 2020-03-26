@@ -3,10 +3,16 @@ import View from './zrouterView';
 let Vue; //引入构造函数,后面方便VueRouter中引用
 class VueRouter {
     constructor(options){
-        this.options = options
+        this.$options = options
+
+        //缓存route和path的映射关系
+        this.routeMap = {}
+        this.$options.routes.forEach((route)=>{
+            this.routeMap[route.path] = route
+        })
+
         //current是响应式的
         // Vue.util.defineReactive(this,current,'/')
-
         //定义响应式属性current
         const initial = window.location.hash.slice(1) || '/'
         Vue.util.defineReactive(this,'current',initial)
@@ -16,7 +22,6 @@ class VueRouter {
         window.addEventListener('load',this.onHashChange.bind(this))
     }
     onHashChange () {
-        console.log(1,window.location.hash)
         this.current = window.location.hash.slice(1)
     }
 }
@@ -26,7 +31,6 @@ VueRouter.install = function (_Vue) {
     //第一步挂载$router
     Vue.mixin({
         beforeCreate(){
-            console.log(this.$options.router)
             if(this.$options.router){
                 Vue.prototype.$router = this.$options.router
             }
@@ -34,7 +38,7 @@ VueRouter.install = function (_Vue) {
     })
 
     //第二步 实现两个全局组件
-    Vue.component('router-link',Link)
-    Vue.component('router-view',View)
+    Vue.component('router-link', Link)
+    Vue.component('router-view', View)
 }
 export default VueRouter

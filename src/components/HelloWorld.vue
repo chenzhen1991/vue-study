@@ -3,7 +3,7 @@
     <button @click="handle">点我点我</button>
     <div>{{add}}</div>
     <p>{{$attrs.refresh}}</p>
-    <p>{{pro}}</p>
+<!--    <p>{{pro}}</p>-->
     <div>
       插槽
       <slot></slot>
@@ -23,9 +23,9 @@
         foo:'插槽传递过来的参数'
       }
     },
-    inject:{
-      pro:'pro'
-    },
+    // inject:{
+    //   pro:'pro'
+    // },
     mounted(){
       this.$parent.$on('foo', (msg) => {
         console.log('msg'+msg)
