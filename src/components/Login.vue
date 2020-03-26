@@ -11,6 +11,9 @@
         <button @click="login" type="button">登录</button>
       </z-form-item>
     </z-form>
+
+    <Node :data="folder" :level="0"></Node>
+    <Tree :data="treeData" :level="0"></Tree>
   </div>
 </template>
 
@@ -20,11 +23,15 @@ import ZFormItem from "@/components/ZformItem.vue";
 import ZForm from "@/components/Zform.vue";
 import create from "@/utils/create";
 import Notice from "@/components/Notice.vue";
+import Node from '@/components/Node.vue';
+import Tree from './Tree.vue';
 export default {
   components: {
     ZInput,
     ZFormItem,
-    ZForm
+    ZForm,
+    Node,
+    Tree
   },
   data() {
     return {
@@ -35,7 +42,67 @@ export default {
       rules: {
         username: [{ required: true, message: "请输入用户名" }],
         password: [{ required: true, message: "请输入密码" }]
-      }
+      },
+      folder: {
+        name: "vue-study",
+        children: [
+          { name: "src", children: [{ name: "main.js" }] },
+          { name: "package.json" }
+        ]
+      },
+      treeData: [{
+        title: "Web全栈架构师",
+        children: [
+          {
+            title: "Java架构师"
+          },
+          {
+            title: "JS⾼级",
+            children: [
+              {
+                title: "ES6"
+              },
+              {
+                title: "动效"
+              }
+            ]
+          },
+          {
+            title: "Web全栈",
+            children: [
+              {
+                title: "Vue训练营",
+                expand: true,
+                children: [
+                  {
+                    title: "组件化"
+                  },
+                  {
+                    title: "源码"
+                  },
+                  {
+                    title: "docker部署"
+                  }
+                ]
+              },
+              {
+                title: "React",
+                children: [
+                  {
+                    title: "JSX"
+                  },
+                  {
+                    title: "虚拟DOM"
+                  }
+                ]
+              },
+              {
+                title: "Node"
+              }
+            ]
+          }
+        ]
+      }]
     };
   },
   methods: {
