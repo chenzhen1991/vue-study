@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{counter}}</p>
+        <p v-text="counter"></p>
+    </div>
+    <script src="./zvue.js"></script>
+    <script>
+        new Zvue({
+            el:"#app",
+            data() {
+                return {
+                    counter:0
+                }
+            }
+        })
+        console.log(this)
+
+        // setInterval(()=>{
+        //     console.log(this)
+        //     this.$data.counter++
+        // },1000)
+    </script>
+</body>
+</html>
