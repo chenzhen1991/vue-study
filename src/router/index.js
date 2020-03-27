@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import VueRouter from './zRouter'
+import ZVueRouter from './zRouter'
 import Home from '../views/Home.vue'
 
-Vue.use(VueRouter)
+Vue.use(ZVueRouter)
 
 const routes = [
   {
@@ -20,7 +20,7 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({
+const router = new ZVueRouter({
   routes
 })
 
