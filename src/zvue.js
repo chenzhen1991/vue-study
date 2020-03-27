@@ -79,6 +79,7 @@ class Compile {
             if(this.isElement(node)){
                 this.compileElement(node)
             }else if(this.isInterpolation(node)){
+                console.log(node)
                 this.compileText(node)
             }
             if(node.childNodes){
@@ -92,11 +93,13 @@ class Compile {
     }
 
     isInterpolation(node){
+        console.log(node)
         return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
     }
 
     compileText(node){
         // node.textContent = this.$vm[RegExp.$1]
+        console.log(node)
         this.update(node, RegExp.$1, 'text')
     }
 
@@ -126,18 +129,22 @@ class Compile {
     }
 
     update(node,exp,dir){
+        console.log(node,exp,dir)
         const fn = this[dir+'Updater']
+        console.log(fn)
         fn && fn(node,this.$vm[exp])
         new Watcher(this.$vm,exp,(val)=>{
+            console.log(val)
             fn && fn(node,val)
         })
     }
 
-    textUpdate (node,val){
+    textUpdater (node,val){
+        console.log(node,val)
         node.textContent = val
     }
 
-    htmlUpdate (node,val){
+    htmlUpdater (node,val){
         node.innerHTML = val
     }
 }
