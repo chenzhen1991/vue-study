@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from './zVuex'
+console.log(Vuex)
 
 Vue.use(Vuex)
 
