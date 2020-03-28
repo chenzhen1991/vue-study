@@ -8,7 +8,7 @@ function observe(obj) {
 
 //设置get set 方法 给每一个属性
 function defienReactive(obj, key, val) {
-    this.observe(val)
+    observe(val)
     const dep = new Dep()
     Object.defineProperty(obj, key, {
         get() {
@@ -16,7 +16,10 @@ function defienReactive(obj, key, val) {
             return val
         },
         set(newVal) {
-            if (newVal === val) return
+            if (newVal !== val) {
+                val = newVal
+            }
+            observe(val)
             dep.notify()
         }
     })
@@ -25,11 +28,12 @@ function defienReactive(obj, key, val) {
 //为$data做代理
 function proxy(vm,prop) {
     Object.keys(vm[prop]).forEach(key => {
-        Object.defineProperty(vm[prop], key, {
+        Object.defineProperty(vm, key, {
             get() {
                 return vm[prop][key]
             },
             set(newVal) {
+                console.log(newVal)
                 vm[prop][key] = newVal
             }
         })
@@ -38,7 +42,6 @@ function proxy(vm,prop) {
 
 class Zvue {
     constructor(options) {
-        console.log(options)
         this.$options = options
         this.$data = options.data
 
@@ -66,7 +69,7 @@ class Observe {
 //编译compile
 class Compile {
     constructor(el, vm) {
-        this.$vm = el
+        this.$vm = vm
         this.$el = document.querySelector(el)
         if(this.$el){
             this.compile(this.$el)
@@ -79,7 +82,6 @@ class Compile {
             if(this.isElement(node)){
                 this.compileElement(node)
             }else if(this.isInterpolation(node)){
-                console.log(node)
                 this.compileText(node)
             }
             if(node.childNodes){
@@ -89,17 +91,15 @@ class Compile {
     }
 
     isElement(node){
-        return node.nodeType === 1
+        return node.nodeType == 1
     }
 
     isInterpolation(node){
-        console.log(node)
-        return node.nodeType === 3 && /\{\{(.*)\}\}/.test(node.textContent)
+        return node.nodeType == 3 && /\{\{(.*)\}\}/.test(node.textContent)
     }
 
     compileText(node){
         // node.textContent = this.$vm[RegExp.$1]
-        console.log(node)
         this.update(node, RegExp.$1, 'text')
     }
 
@@ -109,14 +109,14 @@ class Compile {
             let attrName = attr.name
             let exp = attr.value
             if(this.isDireactive(attrName)){
-                let dir = attrName.subString(2)
+                let dir = attrName.split('-')[1]
                 this[dir] && this[dir](node,exp)
             }
         })
     }
 
     isDireactive (attr){
-        return attr.indexOf('z-') === 0
+        return attr.indexOf('z-') == 0
     }
 
     text (node,exp) {
