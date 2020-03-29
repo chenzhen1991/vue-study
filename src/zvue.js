@@ -112,6 +112,11 @@ class Compile {
                 let dir = attrName.split('-')[1]
                 this[dir] && this[dir](node,exp)
             }
+            if(this.isEvent(attrName)){
+                const dir = attrName.substring(1)
+                console.log(dir)
+                this.eventHandler(node,exp,dir)
+            }
         })
     }
 
@@ -146,6 +151,29 @@ class Compile {
 
     htmlUpdater (node,val){
         node.innerHTML = val
+    }
+
+    isEvent(dir){
+        return dir.indexOf('@') == 0
+    }
+
+    eventHandler(node,exp,dir){
+        console.log(this.$vm.$options.methods,exp);
+        
+        const fn = this.$vm.$options.methods && this.$vm.$options.methods[exp]
+        console.log(fn)
+        node.addEventListener(dir,fn.bind(this))
+    }
+
+    model(node,exp){
+        this.update(node,exp,'model')
+        node.addEventListener('input',e => {
+            this.$vm[exp] = e.target.value
+        })
+    }
+    modelUpdater(node,value){
+        //给表单元素赋值
+        node.value = value
     }
 }
 

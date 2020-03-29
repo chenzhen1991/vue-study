@@ -10,20 +10,29 @@
     <div id="app">
         <p>{{counter}}</p>
         <p z-text='counter'></p>
+        <div @click='onClick'>{{text}}</div>
+        <input type="text" z-model='text'>
     </div>
     <script src="./zvue.js"></script>
     <script>
         let app = new Zvue({
             el: "#app",
             data: {
-                counter: 0
+                counter: 0,
+                text:'22'
+            },
+            methods:{
+                onClick(){
+                    console.log(this.counter)
+                    app.counter++
+                }
             }
         })
 
-        setInterval(() => {
-            console.log(app.counter)
-            app.counter++
-        }, 1000)
+        // setInterval(() => {
+        //     console.log(app.counter)
+        //     app.counter++
+        // }, 1000)
     </script>
 </body>
 
