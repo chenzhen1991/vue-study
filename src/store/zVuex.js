@@ -3,18 +3,38 @@ let Vue;
 class Store {
     constructor(options = {}) {
         console.log(options.state)
+        this._mutation = options.mutations || {}
+        this._action = options.actions || {}
+        this._wrappedGetters = options.getters
+        console.log(this._wrappedGetters)
+
+        const computed = {}
+        this.getters = {}
+        const store = this
+        Object.keys(this._wrappedGetters).forEach(key => {
+            const fn = store._wrappedGetters[key]
+            computed[key] = function () {
+                return fn(store.state)
+            }
+
+            //weigetters定义为只读属性
+            Object.defineProperty(store.getters, key, {
+                get: () => store._vm[key]
+            })
+        })
+
+
+
         this._vm = new Vue({
             data: {
                 $$state: options.state
-            }
+            },
+            computed
         })
-        this._mutation = options.mutations || {}
-        this._action = options.actions || {}
 
         // 绑定commit上下⽂否则action中调⽤commit时可能出问题!!
         // 同时也把action绑了，因为action可以互调
-        const store = this
-        const {commit, action} = store
+        const { commit, action } = store
         this.commit = function boundCommit(type, payload) {
             commit.call(store, type, payload)
         }
@@ -32,7 +52,7 @@ class Store {
     }
 
     commit(type, payload) {
-        console.log('type',type)
+        console.log('type', type)
         //获取type对应的mutation
         const entry = this._mutation[type]
         console.log(entry)
@@ -65,4 +85,4 @@ function install(_Vue) {
     })
 }
 
-export default {Store, install}
+export default { Store, install }

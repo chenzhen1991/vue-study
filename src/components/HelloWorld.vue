@@ -12,7 +12,7 @@
 <!--    </div>-->
     <p @click="$store.commit('add')">counter: {{$store.state.counter}}</p>
     <p @click="$store.dispatch('add')">async counter: {{$store.state.counter}}</p>
-<!--    <p>double {{$store.getters.doubleCount}}</p>-->
+   <p>double {{$store.getters.doubleCount}}</p>
   </div>
 </template>
 
