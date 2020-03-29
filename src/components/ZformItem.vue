@@ -9,7 +9,11 @@
 
 <script>
 import Schema from "async-validator";
+import emitter from "@/mixins/emitter";
 export default {
+  name:'ZFormItem',
+  componentName:'ZFormItem',
+  mixins: [emitter],
   provide(){
     return {
       formItem: this
@@ -37,6 +41,9 @@ export default {
     this.$on("validate", () => {
       this.validate();
     });
+
+    //派发事件通知KForm,新增一个kFormItem实例
+    this.dispatch('ZForm','zzz.form.addField',[this])
   },
   methods: {
     validate() {
