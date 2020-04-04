@@ -1,16 +1,19 @@
 <template>
   <div id="app">
-    <Login />
+    <router-link to='/'>index</router-link>
+    <router-link to='/detail'>detail</router-link>
+    <HelloWorld />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    Login
+    HelloWorld
   }
 }
 </script>
