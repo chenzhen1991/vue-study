@@ -1,38 +1,20 @@
-//服务器入口
-//1, 导航至首屏
-//2,
 import { createApp } from './main';
 
 export default context => {
-    return new Promise((resolve,reject) =>{
-        const { app, router, store } = createApp(context)
+    return new Promise((resolve, reject) => {
+        const { app, router } = createApp(context)
+        console.log(111, context.url);
 
-        //导航到首屏
         router.push(context.url)
-        //导航首屏可能是异步的
-        router.onReady(()=>{
-            //就绪后可能有异步数据请求
+        router.onReady(() => {
             const matchedComponents = router.getMatchedComponents()
-            if(!matchedComponents.length){
-                return reject({code:400})
+            // 匹配不到的路由，执行 reject 函数，并返回 404
+            if (!matchedComponents.length) {
+                return reject({ code: 404 })
             }
-            Promise.all(matchedComponents.map(Component => {
-                console.log(11,Component);
-                
-                if(Component.asyncData){
-                    console.log(234);
-                    
-                    return Component.asyncData({
-                        store,
-                        route: router.currentRoute
-                    })
-                }
-            })).then(() => {
-                console.log(567,context,store.state);
-                
-                context.state = store.state
-                resolve(app)
-            })
-        },reject)
+
+            // Promise 应该 resolve 应用程序实例，以便它可以渲染
+            resolve(app)
+        }, reject)
     })
 }
