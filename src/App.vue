@@ -5,8 +5,9 @@
 </template>
 
 <script>
-import Login from './components/Login.vue'
-
+// import Login from './components/Login.vue'
+// 修改alias后的修改
+import Login from 'comps/Login.vue'
 export default {
   name: 'App',
   components: {
