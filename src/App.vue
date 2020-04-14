@@ -1,10 +1,14 @@
 <template>
   <div id="app">
+    <svg>
+      <use xlink:href="#icon-auto" />
+    </svg>
     <Login />
   </div>
 </template>
 
 <script>
+import '@/icon/svg/auto.svg';
 // import Login from './components/Login.vue'
 // 修改alias后的修改
 import Login from 'comps/Login.vue'

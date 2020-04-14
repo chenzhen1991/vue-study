@@ -1,5 +1,5 @@
 const path = require('path')
-
+const resolve = dir => path.resolve(__dirname, dir)
 module.exports = {
     publicPath: '/vue-demo',
     devServer:{
@@ -22,5 +22,16 @@ module.exports = {
         } else {
             config.name = 'vue project'
         }
+    },
+    chainWebpack (config) {
+        // 找到默认svg-loader，让他排除icons目录
+        config.module.rule('svg').exclude.add(resolve('src/icon'))
+        // 新增loader，让他去加载icons中的svg
+        config.module.rule('icon')
+        .test(/\.svg$/)
+        .include.add(resolve('src/icon')).end()
+        .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .options({symbolId: 'icon-[name]'})
     }
 }
