@@ -41,10 +41,12 @@ const actions = {
         })
     },
     resetToken({ commit }) {
-        commit('setToken', '');
-        commit('setRoles', []);
-        localStorage.removeItem('token');
-        resolve();
+        return new Promise(resolve => {
+            commit('setToken', '');
+            commit('setRoles', []);
+            localStorage.removeItem('token');
+            resolve();
+        })
     }
 }
 
