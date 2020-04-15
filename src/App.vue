@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <svg>
-      <use xlink:href="#icon-auto" />
-    </svg>
+<!--    <svg>-->
+<!--      <use xlink:href="#icon-auto" />-->
+<!--    </svg>-->
+    <svg-icon icon-class="auto"></svg-icon>
     <Login />
   </div>
 </template>
