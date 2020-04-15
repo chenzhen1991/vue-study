@@ -3,8 +3,12 @@
 <!--    <svg>-->
 <!--      <use xlink:href="#icon-auto" />-->
 <!--    </svg>-->
-    <svg-icon icon-class="auto"></svg-icon>
-    <Login />
+      <div>
+          <router-link to="/"><svg-icon icon-class="auto"></svg-icon>Home</router-link>
+          <router-link to="/about">About</router-link>
+      </div>
+      <!-- 路由出口 -->
+      <router-view />
   </div>
 </template>
 
@@ -12,12 +16,9 @@
 import '@/icon/svg/auto.svg';
 // import Login from './components/Login.vue'
 // 修改alias后的修改
-import Login from 'comps/Login.vue'
 export default {
   name: 'App',
-  components: {
-    Login
-  }
+  components: {}
 }
 </script>
 
