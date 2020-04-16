@@ -6,6 +6,10 @@ const state = {
     roles: []
 };
 
+const getters = {
+    roles: state => state.roles
+}
+
 const mutations = {
     setToken: (state, token) => {
         state.token = token;
@@ -18,12 +22,17 @@ const mutations = {
 const actions = {
     login({ commit }, userInfo) {
         const { username } = userInfo;
+        console.log(">>>>>>>>>>>>>>>>>.user Login");
+        // console.log(commit, username);
+        
+        // return;
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 if (username === 'admin' || username === 'jerry'){
                     commit('setToken', username);
                     localStorage.setItem('token', username)
                     console.log('token', username)
+                    // return
                     resolve();
                 } else {
                     reject('用户名、密码错误')
@@ -55,5 +64,6 @@ export default {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 }
