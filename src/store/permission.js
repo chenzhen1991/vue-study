@@ -38,14 +38,17 @@ export function filterAsyncRoutes(routes, roles) {
         // 复制一份
         const tmp = { ...route }
         // 如果用户有访问权则加入结果路由表
+        console.log(hasPermission(roles, tmp))
         if (hasPermission(roles, tmp)) {
             // 如果存在子路由 则递归过滤之
-            console.log('roles', roles)
-            tmp.children = filterAsyncRoutes(tmp.children, roles)
+            console.log('roles', roles, tmp.children)
+            if (tmp.children) {
+                tmp.children = filterAsyncRoutes(tmp.children, roles);
+            }
+            res.push(tmp)
         }
-        res.push(tmp)
     });
-
+    console.log(res)
     return res;
 }
 
@@ -56,13 +59,13 @@ export function filterAsyncRoutes(routes, roles) {
 * */
 
 function hasPermission(roles, route) {
-    // 如果当前路由有roles字段，则需要判断用户访问权限
+    // 如果当前路由有roles字段则需判断用户访问权限
     if (route.meta && route.meta.roles) {
-        // 若用户拥有的角色中有包含在待判定路由角色表中的则拥有访问权
+        // 若用户拥有的角色中有被包含在待判定路由角色表中的则拥有访问权
         return roles.some(role => route.meta.roles.includes(role));
     } else {
         // 没有设置roles则无需判定即可访问
-         return true
+        return true;
     }
 }
 
