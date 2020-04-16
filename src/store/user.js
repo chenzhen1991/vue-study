@@ -1,4 +1,4 @@
-import { login, getInfo } from '@/api/user';
+// import { login, getInfo } from '@/api/user';
 
 const state = {
     token: localStorage.getItem('token'),
@@ -23,6 +23,7 @@ const actions = {
                 if (username === 'admin' || username === 'jerry'){
                     commit('setToken', username);
                     localStorage.setItem('token', username)
+                    console.log('token', username)
                     resolve();
                 } else {
                     reject('用户名、密码错误')

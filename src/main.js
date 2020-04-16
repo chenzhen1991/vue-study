@@ -4,12 +4,14 @@ import App from './App.vue';
 import './plugins/element.js';
 import router from './router';
 import store from './store';
+
 import '@/icon';
+import './permission';
 
 Vue.config.productionTip = false;
 // Vue.prototype.$create = create
-console.log(process.env.foo)
-console.log(process.env.VUE_APP_DONG)
+// console.log(process.env.foo)
+// console.log(process.env.VUE_APP_DONG)
 new Vue({
   router,
   store,
