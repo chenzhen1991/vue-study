@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-<!--    <svg>-->
-<!--      <use xlink:href="#icon-auto" />-->
-<!--    </svg>-->
+      <Sidebar></Sidebar>
       <div>
           <router-link to="/"><svg-icon icon-class="auto"></svg-icon>Home</router-link>
           <router-link to="/about">About</router-link>
@@ -15,10 +13,13 @@
 <script>
 import '@/icon/svg/auto.svg';
 // import Login from './components/Login.vue'
+import Sidebar from "@/components/Sidebar";
 // 修改alias后的修改
 export default {
   name: 'App',
-  components: {}
+  components: {
+      Sidebar
+  }
 }
 </script>
 
