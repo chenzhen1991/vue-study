@@ -2,13 +2,10 @@ import router from './router';
 import store from './store';
 
 const whiteList = ['/login']  // 无需令牌白名单
-console.log(store)
 
 router.beforeEach(async (to, from, next) => {
     // 获取令牌判断用户是否登录
     const hasToken = localStorage.getItem('token')
-    console.log('hasToken', hasToken)
-    console.log(to, from, next);
     
     // 已经登录
     if (hasToken) {
@@ -20,7 +17,6 @@ router.beforeEach(async (to, from, next) => {
             // return;
             // console.log(">>>store.getters.user",store.getters.user)
             const hasRoles = store.getters.roles && store.getters.roles.length > 0;
-            console.log(">>>>>>>>>>>>>23",hasRoles)
 
             if (hasRoles) {
                 // 说明用户已获取过角色信息，放行
@@ -29,19 +25,18 @@ router.beforeEach(async (to, from, next) => {
                 try {
                    // 先请求获取用户信息
                    const { roles } = await store.dispatch('user/getInfo')
-                   console.log(roles);
                    
                     // return;
                    //根据当前用户角色过滤出可访问路由
                     const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+                    console.log(accessRoutes)
                     // 添加至路由器
                     router.addRoutes(accessRoutes)
 
                     //继续路由切换，确保addRoutes完成
-                    console.log(to);
+                    console.log(router);
                     
-                    // next({...to, replace: true})
-                    next("/")
+                    next({...to, replace: true})
                 } catch (error) {
                     // 出错需重置令牌并重新登录（令牌过期，网络错误等原因）
                     await store.dispatch('user/resetToken')
@@ -53,12 +48,8 @@ router.beforeEach(async (to, from, next) => {
     } else {
         if (whiteList.indexOf(to.path) !== -1) {
             // 白名单中路由放过
-            console.log('在这里>>>>>>>>');
-            // return;
             next()
         } else {
-            console.log('在这里');
-            
             // 重定向至登录页
             next(`/login?redirect=${to.path}`)
         }

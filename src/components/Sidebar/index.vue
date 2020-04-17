@@ -9,23 +9,26 @@
       :collapse-transition="false"
       mode="vertical"
     >
-      <!-- <sidebar-item
+      <sidebar-item
         v-for="route in permission_routes"
         :key="route.path"
         :item="route"
         :base-path="route.path"
-      /> -->
+      />
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
-// import SidebarItem from "./SidebarItem";
+import { mapGetters } from "vuex";
+import SidebarItem from "./SidebarItem";
 
 export default {
-  // components: { SidebarItem },
+  components: { SidebarItem },
   computed: {
+    ...mapGetters(["permission_routes"]),
     activeMenu() {
+      console.log(this.permission_routes)
       const route = this.$route;
       const { meta, path } = route;
       // 默认激活项

@@ -22,7 +22,6 @@ export default {
       this.$store
         .dispatch('user/login', {username: this.username})
         .then(() => {
-          console.log('这里来过>>>>>')
           this.$router.push({
             path: this.$route.query.redirect || '/'
           })

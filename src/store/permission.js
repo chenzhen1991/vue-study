@@ -1,5 +1,7 @@
 import { asyncRoutes, constRoutes } from "@/router";
 
+console.log(constRoutes)
+
 const state = {
     routes: [], // 完整路由表
     addRoutes: [] // 用户可访问路由表
@@ -17,8 +19,8 @@ const actions = {
     generateRoutes({ commit },roles) {
         return new Promise(resolve => {
             // 根据角色做过滤处理
-            console.log('routes', asyncRoutes)
             const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
+            console.log(accessedRoutes)
             commit('setRoutes', accessedRoutes)
             resolve(accessedRoutes)
         })
@@ -34,21 +36,17 @@ export function filterAsyncRoutes(routes, roles) {
     const res = [];
 
     routes.forEach(route => {
-        console.log('route', route)
         // 复制一份
         const tmp = { ...route }
         // 如果用户有访问权则加入结果路由表
-        console.log(hasPermission(roles, tmp))
         if (hasPermission(roles, tmp)) {
             // 如果存在子路由 则递归过滤之
-            console.log('roles', roles, tmp.children)
             if (tmp.children) {
                 tmp.children = filterAsyncRoutes(tmp.children, roles);
             }
             res.push(tmp)
         }
     });
-    console.log(res)
     return res;
 }
 

@@ -22,7 +22,6 @@ const mutations = {
 const actions = {
     login({ commit }, userInfo) {
         const { username } = userInfo;
-        console.log(">>>>>>>>>>>>>>>>>.user Login");
         // console.log(commit, username);
         
         // return;
@@ -31,7 +30,6 @@ const actions = {
                 if (username === 'admin' || username === 'jerry'){
                     commit('setToken', username);
                     localStorage.setItem('token', username)
-                    console.log('token', username)
                     // return
                     resolve();
                 } else {
