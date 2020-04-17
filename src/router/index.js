@@ -16,7 +16,17 @@ export const constRoutes = [
         meta: {
             title: 'Home', //导航菜单项标题
             icon: 'qq'   //导航菜单项图标
-        }
+        },
+        children:[
+            {
+                path: '/home/homeChild',
+                component: () => import(/* webpackChunkName:"home" */'../views/HomeChild.vue'),
+                name: 'homeChild',
+                meta: {
+                    title: 'HomeChild' //导航菜单项标题
+                },
+            }
+        ]
     }
 ]
 
@@ -26,11 +36,21 @@ export const asyncRoutes = [
         path: '/about',
         component: () => import(/* webpackChunkName:"about" */'../views/About.vue'),
         name: 'about',
-        mata: {
+        meta: {
             title: 'About',
             icon: 'auto',
             roles: ['admin', 'editor']
-        }
+        },
+        children:[
+            {
+                path: '/home/homeChild1',
+                component: () => import(/* webpackChunkName:"home" */'../views/HomeChild.vue'),
+                name: 'homeChild1',
+                meta: {
+                    title: 'HomeChild1' //导航菜单项标题
+                },
+            }
+        ]
     }
 ]
 

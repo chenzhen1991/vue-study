@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     login() {
-      console.log(234)
       this.$store
         .dispatch('user/login', {username: this.username})
         .then(() => {

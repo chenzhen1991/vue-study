@@ -20,7 +20,6 @@ const actions = {
         return new Promise(resolve => {
             // 根据角色做过滤处理
             const accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
-            console.log(accessedRoutes)
             commit('setRoutes', accessedRoutes)
             resolve(accessedRoutes)
         })

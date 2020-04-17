@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Sidebar></Sidebar>
+      <SideBar></SideBar>
       <div>
           <router-link to="/"><svg-icon icon-class="auto"></svg-icon>Home</router-link>
           <router-link to="/about">About</router-link>
@@ -13,12 +13,12 @@
 <script>
 import '@/icon/svg/auto.svg';
 // import Login from './components/Login.vue'
-import Sidebar from "@/components/Sidebar";
+import SideBar from "@/components/SideBar";
 // 修改alias后的修改
 export default {
   name: 'App',
   components: {
-      Sidebar
+      SideBar
   }
 }
 </script>
